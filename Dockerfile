@@ -2,7 +2,7 @@ FROM python:buster
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ARG WINEHQ_VERSION=winehq-staging
+ARG WINEHQ_VERSION=winehq-stable
 ARG PYTHON_VERSION=3.9.2
 ARG PYINSTALLER_VERSION=4.2
 
