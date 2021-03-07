@@ -13,7 +13,7 @@ ENV WINEPREFIX /wine
 ENV PYPI_URL=https://pypi.python.org/
 # PYPI index location
 ENV PYPI_INDEX_URL=https://pypi.python.org/simple
-RUN apt install -qfy rename.ul
+
 # install python in wine, using the msi packages to install, extracting
 # the files directly, since installing isn't running correctly.
 RUN set -x \
@@ -49,7 +49,7 @@ RUN set -x \
     && cabextract -q --directory="$W_TMP" "$W_TMP/a10" \
     && cabextract -q --directory="$W_TMP" "$W_TMP/a11" \
     && cd "$W_TMP" \
-    && rename 's/_/\-/g' *.dll \
+    && rename.ul 's/_/\-/g' *.dll \
     && cp "$W_TMP"/*.dll "$W_SYSTEM64_DLLS"/
 
 # install pyinstaller
