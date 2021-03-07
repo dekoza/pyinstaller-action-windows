@@ -2,7 +2,7 @@ FROM python:buster
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ARG WINE_VERSION=winehq-staging
+ARG WINE_VERSION=winehq-stable
 ARG PYTHON_VERSION=3.9.2
 ARG PYINSTALLER_VERSION=4.2
 
@@ -13,7 +13,7 @@ RUN set -x \
     && apt-get install --no-install-recommends -qfy apt-transport-https software-properties-common wget \
     && wget -nv https://dl.winehq.org/wine-builds/winehq.key \
     && apt-key add winehq.key \
-    && add-apt-repository 'https://dl.winehq.org/wine-builds/debian/' \
+    && add-apt-repository 'deb https://dl.winehq.org/wine-builds/debian/ buster main'  \
     && apt-get update -qy \
     && apt-get install --no-install-recommends -qfy $WINE_VERSION winbind cabextract \
     && apt-get clean \
