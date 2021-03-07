@@ -1,27 +1,8 @@
-FROM python:buster
+FROM scottyhardy/docker-wine:devel
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ARG WINEHQ_VERSION=winehq-stable
 ARG PYTHON_VERSION=3.9.2
-ARG PYINSTALLER_VERSION=4.2
-
-# we need wine for this all to work, so we'll use the PPA
-RUN set -x \
-    && dpkg --add-architecture i386 \
-    && apt-get update -qy \
-    && apt-get install --no-install-recommends -qfy apt-transport-https software-properties-common wget gnupg2 \
-    && wget -nv https://dl.winehq.org/wine-builds/winehq.key \
-    && apt-key add winehq.key \
-    && add-apt-repository 'https://dl.winehq.org/wine-builds/debian/'  \
-    && wget -O- -q https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10/Release.key | apt-key add - \
-    && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10 ./" | tee /etc/apt/sources.list.d/wine-obs.list \
-    && apt-get update -qy \
-    && apt-get install --no-install-recommends -qfy wine-staging wine-staging-i386 wine-staging-amd64 $WINEHQ_VERSION winbind cabextract \
-    && apt-get clean \
-    && wget -nv https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
-    && chmod +x winetricks \
-    && mv winetricks /usr/local/bin
 
 # wine settings
 ENV WINEARCH win64
@@ -72,7 +53,7 @@ RUN set -x \
     && cp "$W_TMP"/*.dll "$W_SYSTEM64_DLLS"/
 
 # install pyinstaller
-RUN /usr/bin/pip install pyinstaller==$PYINSTALLER_VERSION
+RUN /usr/bin/pip install pyinstaller
 
 # put the src folder inside wine
 RUN mkdir /src/ && ln -s /src /wine/drive_c/src
