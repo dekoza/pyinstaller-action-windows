@@ -1,4 +1,4 @@
-FROM scottyhardy/docker-wine:devel
+FROM scottyhardy/docker-wine:latest
 
 ENV DEBIAN_FRONTEND noninteractive
 
