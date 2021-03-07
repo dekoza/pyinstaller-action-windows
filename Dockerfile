@@ -10,12 +10,13 @@ ARG PYINSTALLER_VERSION=4.2
 RUN set -x \
     && dpkg --add-architecture i386 \
     && apt-get update -qy \
-    && apt-get install --no-install-recommends -qfy apt-transport-https software-properties-common wget \
+    && apt-get install --no-install-recommends -qfy apt-transport-https software-properties-common wget gnupg2 \
     && wget -nv https://dl.winehq.org/wine-builds/winehq.key \
     && apt-key add winehq.key \
-    && add-apt-repository 'deb https://dl.winehq.org/wine-builds/debian/ buster main'  \
+    && add-apt-repository 'https://dl.winehq.org/wine-builds/debian/'  \
+    && wget -O- -q https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10/Release.key | sudo apt-key add - \
+    && echo "deb http://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10 ./" | sudo tee /etc/apt/sources.list.d/wine-obs.list \
     && apt-get update -qy \
-    && apt-get install -qfy \
     && apt-get install --no-install-recommends -qfy wine-staging wine-staging-i386 wine-staging-amd64 $WINEHQ_VERSION winbind cabextract \
     && apt-get clean \
     && wget -nv https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
