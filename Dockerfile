@@ -3,7 +3,6 @@ FROM python:buster
 ENV DEBIAN_FRONTEND noninteractive
 
 ARG WINEHQ_VERSION=winehq-stable
-ARG WINE_VERSION=wine-stable
 ARG PYTHON_VERSION=3.9.2
 ARG PYINSTALLER_VERSION=4.2
 
@@ -16,7 +15,7 @@ RUN set -x \
     && apt-key add winehq.key \
     && add-apt-repository 'deb https://dl.winehq.org/wine-builds/debian/ buster main'  \
     && apt-get update -qy \
-    && apt-get install -qfy $WINEHQ_VERSION $WINE_VERSION winbind cabextract \
+    && apt-get install -qfy --install-recommends $WINEHQ_VERSION winbind cabextract \
     && apt-get clean \
     && wget -nv https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
     && chmod +x winetricks \
