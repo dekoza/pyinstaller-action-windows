@@ -15,7 +15,7 @@ RUN set -x \
     && apt-key add winehq.key \
     && add-apt-repository 'deb https://dl.winehq.org/wine-builds/debian/ buster main'  \
     && apt-get update -qy \
-    && apt-get install -qfy --install-recommends wine-staging wine-staging-i386 wine-staging-amd64 $WINEHQ_VERSION winbind cabextract \
+    && apt-get install --no-install-recommends -qfy wine-staging wine-staging-i386 wine-staging-amd64 $WINEHQ_VERSION winbind cabextract \
     && apt-get clean \
     && wget -nv https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
     && chmod +x winetricks \
