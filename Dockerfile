@@ -13,7 +13,7 @@ ENV WINEPREFIX /wine
 ENV PYPI_URL=https://pypi.python.org/
 # PYPI index location
 ENV PYPI_INDEX_URL=https://pypi.python.org/simple
-RUN apt install -qfy rename
+RUN apt install -qfy rename.ul
 # install python in wine, using the msi packages to install, extracting
 # the files directly, since installing isn't running correctly.
 RUN set -x \
